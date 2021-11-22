@@ -20,7 +20,7 @@ const loginControl = (request, response) => {
           console.log("Client from login service :" + JSON.stringify(client));
           if (client === null) {
             console.log("Auhtentication problem!");
-            response.render("login_result", { result: "Login failed" });
+            response.render("loginRes", { result: "Login failed" });
           } else {
             console.log("User from login service :" + client[0].num_client);
             //add to session
