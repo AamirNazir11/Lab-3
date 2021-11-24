@@ -73,60 +73,78 @@ const registerService = (client, callback) => {
 };
 
 
-const searchService = function(callback) { //to be completed
-    clientDAO.find(function(err, rows) {
-        if (err) {
-            throw err;
-        }
-        if (rows.length == 0) {
-            console.log("No clients!");
-        } else {
-            callback(null, rows);
-        }
-    });
+const searchService = function (callback) { //to be completed
+  clientDAO.find(function (err, rows) {
+    if (err) {
+      throw err;
+    }
+    if (rows.length == 0) {
+      console.log("No clients!");
+    } else {
+      callback(null, rows);
+    }
+  });
 };
 
-const searchUsername = function(username, callback) {
-  clientDAO.findByUsername(username, function(err, rows) {
-      if (err) {
-          throw err;
-      } else {
-          callback(false, rows);
-      }
+const searchUsername = function (username, callback) {
+  clientDAO.findByUsername(username, function (err, rows) {
+    if (err) {
+      throw err;
+    } else {
+      callback(false, rows);
+    }
   });
 }
 
-const searchNumclientService = function(num_client, callback) {
-    clientDAO.findByNumclient(num_client,function(err, rows) {
-        if (err) {
-            throw err;
-        }
-        if (rows.length == 0) {
-            console.log("No client with that id!");
-        } else {
-            callback(null, rows);
-        }
-    });
+const searchNumclientService = function (num_client, callback) {
+  clientDAO.findByNumclient(num_client, function (err, rows) {
+    if (err) {
+      throw err;
+    }
+    if (rows.length == 0) {
+      console.log("No client with that id!");
+    } else {
+      callback(null, rows[0]);
+    }
+  });
 };
 
-const deleteService = function(num_client, callback) {
-    clientDAO.findByNumclient(num_client,function(err, rows) {
-        if (err) {
-            throw err;
-        }
-        if (rows.length == 0) {
-            console.log("No products!");
-        } else {
-            clientDAO.deleteClient(num_client,callback);
-        }
-    });
+const deleteService = function (num_client, callback) {
+  clientDAO.findByNumclient(num_client, function (err, rows) {
+    if (err) {
+      throw err;
+    }
+    if (rows.length == 0) {
+      console.log("No products!");
+    } else {
+      clientDAO.deleteClient(num_client, callback);
+    }
+  });
 };
+
+
+const searchUsernameService = function (num_client, callback) {
+  clientDAO.findNumUsername(num_client, function (err, rows) {
+    if (err) {
+      throw err;
+    }
+    if (rows.length == 0) {
+      console.log("Unkown client!");
+      let client = null;
+      callback(null, client);
+    } else {
+      //rreturn the retrieved client
+      callback(null, rows[0]);
+    }
+  });
+}
 
 module.exports = {
-    loginService,
-    registerService,
-    searchNumclientService,
-    searchUsername,
-    searchService,
-    deleteService
+  loginService,
+  registerService,
+  searchNumclientService,
+  searchUsername,
+  searchService,
+  deleteService,
+  searchUsernameService
 };
